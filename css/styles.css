@@ -1,0 +1,73 @@
+/* General */
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  position: relative;
+  text-align: center;
+}
+
+/* States */
+.states {
+  fill: none;
+  stroke: #fff;
+  stroke-linejoin: round;
+}
+
+.states-choropleth {
+  fill: #ccc;
+}
+
+/* Tooltip */
+#tooltip-container {
+  position: absolute;
+  background-color: #fff;
+  color: #000;
+  padding: 10px;
+  border: 1px solid;
+  display: none;
+}
+
+.tooltip_title {
+  font-size: 16;
+  font-weight: bold;
+}
+
+.tooltip_key {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.tooltip_value {
+  margin-left: 20px;
+  float: right;
+  font-size: 12px;
+}
+
+/* Bar chart */
+
+.bar {
+  fill: #d3e5ff;
+}
+
+.bar:hover {
+  fill: #000066;
+}
+
+.axis {
+  font: 12px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.axis-label {
+  font-weight: bold;
+  font-size: 14px;
+}
