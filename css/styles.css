@@ -27,7 +27,7 @@ body {
 }
 
 .tooltip_title {
-  font-size: 16;
+  font-size: 16px;
   font-weight: bold;
 }
 
@@ -70,4 +70,39 @@ body {
 .axis-label {
   font-weight: bold;
   font-size: 14px;
+}
+
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 4px;
+  background: #000066;
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 14px;
+  width: 100%;
+  line-height: 1;
+  color: #000066;
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+.bar-chart-tooltip {
+  font-size: 14px;
+  font-weight: bold;
+  color: #d3e5ff;
 }
