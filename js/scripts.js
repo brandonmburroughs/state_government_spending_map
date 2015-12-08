@@ -9,7 +9,7 @@ var config = {"color1":"#d3e5ff", // Starting color
               "state":"State"}; // The state name column
   
 // Width and heigh of map
-var map_width = 800, map_height = 500;
+var map_width = 800, map_height = 475;
 
 // How many color in our maps gradient
 var number_of_colors = 50; 
