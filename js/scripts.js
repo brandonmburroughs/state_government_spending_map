@@ -57,8 +57,8 @@ function hexToRgb(hex) {
 }
 
 // Convert binary values to yes/no
-function ValueFormat(value) {
-  return Math.round(value * 100) / 100 + "%"
+function valueFormat(value) {
+  return "$" + value.toFixed(2);
 }
 
 // Use the data to build the map
@@ -172,7 +172,7 @@ d3.csv("data/state_data_percent.csv", function(err, data) {
                       html += d3.keys(data[0])[i];
                       html += "</span>";
                       html += "<span class=\"tooltip_value\">";
-                      html += ValueFormat(dataMap[id_name_map[d.id]][d3.keys(data[0])[i]]);
+                      html += valueFormat(dataMap[id_name_map[d.id]][d3.keys(data[0])[i]]);
                       html += "";
                       html += "</span>";
                       html += "</div>";
@@ -237,7 +237,7 @@ d3.csv("data/state_data_percent.csv", function(err, data) {
           .scale(y)
           .orient("left")
           .ticks(10)
-          .tickFormat(d3.format("%"));
+          .tickFormat(d3.format("$"));
 
       // Create container
       var svg_bar_chart = d3.select("#overall-bar-chart").append("svg")
@@ -245,6 +245,17 @@ d3.csv("data/state_data_percent.csv", function(err, data) {
           .attr("height", height + margin.top + margin.bottom)
         .append("g")
           .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      // Tool tip
+      var tip = d3.tip()
+                  .attr('class', 'd3-tip')
+                  .offset([-32, -8])
+                  .html(function(d) {
+                    return "<span class='bar-chart-tooltip'>" + valueFormat(d.Mean) + "</span>";
+                  });
+      
+      // Tooltip
+      svg_bar_chart.call(tip);
 
       // Data
       d3.csv("data/state_summary_data.csv", type, function(error, summary_data) {
@@ -282,7 +293,9 @@ d3.csv("data/state_data_percent.csv", function(err, data) {
                       .attr("width", x.rangeBand())
                       .attr("y", function(d) { return y(d.Mean); })
                       .attr("height", function(d) { return height - y(d.Mean); })
-                      .on("mouseover", function(d) {drawMap(d.Expenditure);});
+                      .on("mouseover", function(d) {drawMap(d.Expenditure);})
+                      .on('mouseover.tip', tip.show)
+                      .on('mouseout', tip.hide);
 
         // X Axis Label
         svg_bar_chart.append("text")
@@ -299,7 +312,7 @@ d3.csv("data/state_data_percent.csv", function(err, data) {
                       .style("text-anchor", "middle")
                       .attr("x", 0 - height / 2)
                       .attr("y", 0 - margin.left + 20)
-                      .text("Average Expenditure (Percent of Total Revenue)");
+                      .text("Average Expenditure per Capita");
 
         // Title
         svg_bar_chart.append("text")
@@ -308,9 +321,8 @@ d3.csv("data/state_data_percent.csv", function(err, data) {
                       .attr("text-anchor", "middle")  
                       .style("font-size", "20px")
                       .style("font-weight", "bold")
-                      .text("Average State Expenditures as a Percent of Total Revenue");
+                      .text("Average State Expenditures per Capita");
       
-
       });
 
       // Function wraps text for bar chart
